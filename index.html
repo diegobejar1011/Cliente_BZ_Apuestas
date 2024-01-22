@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <button onclick="hacerAPuesta()">Hacer apuesta</button>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script> -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+    <script>
+        const socket = io('http://localhost:3000'); 
+
+        // cuando se conecta
+        socket.on("connect", () => {
+            console.log("socket conectado:", socket.id);
+            console.log("estatus:", socket.connected);
+        })
+      
+        function hacerAPuesta () {
+          socket.emit('apuesta:create', {
+          descripcion: "nueva apuesta",
+          activa: 0
+        })}
+
+        socket.on("apuesta:created_sucess", (data) => {
+          console.log('Si se hizo')
+          console.log(data);
+        })
+
+    </script>
+
+    <script>
+
+    </script>
+</body>
+</html>
